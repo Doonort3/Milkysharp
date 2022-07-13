@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA1304: Укажите CultureInfo
+dotnet_diagnostic.CA1304.severity = silent

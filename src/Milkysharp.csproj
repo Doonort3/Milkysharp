@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <!--<RuntimeIdentifier>cosmos</RuntimeIdentifier>-->
+        <Platform>cosmos</Platform>
+        <SupportsX86Intrinsics>false</SupportsX86Intrinsics>
+        <SelfContained>True</SelfContained>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <EnableGDB>True</EnableGDB>
+        <StartCosmosGDB>False</StartCosmosGDB>
+        <VisualStudioDebugPort>Pipe: Cosmos\Serial</VisualStudioDebugPort>
+        <CosmosDebugPort>Serial: COM1</CosmosDebugPort>
+        <Launch>VMWare</Launch>
+        <Profile>Workstation</Profile>
+        <Description>Use VMware Player or Workstation to deploy and debug.</Description>
+        <PxeInterface>192.168.0.8</PxeInterface>
+        <VMWareEdition>Workstation</VMWareEdition>
+        <CompileVBEMultiboot>False</CompileVBEMultiboot>
+        <DebugEnabled>False</DebugEnabled>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <BinFormat>Elf</BinFormat>
+        <TraceMode>All</TraceMode>
+	    <StackCorruptionDetectionLevel>AllInstructions</StackCorruptionDetectionLevel>
+        <IgnoreDebugStubAttribute>True</IgnoreDebugStubAttribute>
+        <DebugCom>1</DebugCom>
+        <OutputType>Library</OutputType>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <ExtractMapFile>False</ExtractMapFile>
+        <EnableBochsDebug>True</EnableBochsDebug>
+        <StartBochsDebugGui>True</StartBochsDebugGui>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <AnalysisLevel>5.0</AnalysisLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <Optimize>False</Optimize>
+      <WarningLevel>4</WarningLevel>
+      <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <Optimize>True</Optimize>
+      <WarningLevel>4</WarningLevel>
+      <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Drivers\**" />
+      <EmbeddedResource Remove="Drivers\**" />
+      <None Remove="Drivers\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
+        <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
+        <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Graphic\" />
+    </ItemGroup>
+
+</Project>
