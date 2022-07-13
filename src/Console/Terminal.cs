@@ -18,11 +18,11 @@ namespace Milkysharp.Console
             Kernel.CurrentDirectory = @$"0:\home\{Kernel.Username}\";
 
             System.Console.WriteLine($"Welcome to Milkysharp!" + 
-                                     $"\n\nVersion ------ # {Kernel.Ver}" +
-                                     $"\nShell --------- # {Kernel.ShName}\n");
+                                     $"\n\nVersion ------- # {Kernel.Ver}" +
+                                     $"\nShell " + $"--------- # {Kernel.ShName}" +
+                                     $"\nType 'help' or 'list'.\n");
 
-        input:
-            if (!Kernel.CurrentDirectory.EndsWith(@"\")) Kernel.CurrentDirectory += @"\";
+            input: if (!Kernel.CurrentDirectory.EndsWith(@"\")) Kernel.CurrentDirectory += @"\";
             // Before input like PS1 in BASH
             Methods.Write($"{Kernel.Username}", ConsoleColor.Blue);
             Methods.Write($"@{Kernel.ShName}:", ConsoleColor.White);
@@ -39,7 +39,7 @@ namespace Milkysharp.Console
 
                 #region ParseCommands
 
-                if (commandName.StartsWith(".\\"))
+                /*if (commandName.StartsWith(".\\"))
                 {
                     commandName = ".\\";
                     string programName = commandName.Remove(commandName.Length - 1);
@@ -54,7 +54,7 @@ namespace Milkysharp.Console
                     arguments.RemoveRange(0, 1);
                     Commands.RunStandart(arguments, programName, commandName);
                     goto input;
-                }
+                }*/
 
                 switch (commandName.Trim(' ').ToLower())
                 {

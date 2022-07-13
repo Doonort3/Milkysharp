@@ -280,37 +280,39 @@ namespace Milkysharp.Console
 
         public static void CmdList(List<string> arguments)
         {
-            if (arguments.Count == 1 && arguments[0].ToLower() is "-h" or "--help")
+            switch (arguments.Count)
             {
-                Methods.Help("null", "$ cmdlist", "A list of all the commands.");
-            }
-            else if (arguments.Count > 1 && arguments[0].ToLower() is "-h" or "--help")
-            {
-                Methods.WriteLine("Syntax error. Use \"cmdlist --help (-h)\" command.", ConsoleColor.Red);
-            }
-            else if (arguments.Count == 0)
-            {
-                string[] commands =
+                case 1 when arguments[0].ToLower() is "-h" or "--help":
+                    Methods.Help("null", "$ cmdlist", "A list of all the commands.");
+                    break;
+                case > 1 when arguments[0].ToLower() is "-h" or "--help":
+                    Methods.WriteLine("Syntax error. Use \"cmdlist --help (-h)\" command.", ConsoleColor.Red);
+                    break;
+                case 0:
                 {
-                    "\nCMD: cls\\clear ---------------- DESC: Clearing the terminal screen.",
-                    "CMD: pwd ---------------------- DESC: Display the current directory.",
-                    "CMD: mkdir -------------------- DESC: Creating a new folder.",
-                    "CMD: cd ----------------------- DESC: Changing the working directory.",
-                    "CMD: ls ----------------------- DESC: Display all folders and files.",
-                    "CMD: rm ----------------------- DESC: Deleting file or a directory.",
-                    "CMD: cp ----------------------- DESC: Copies the file to the spec. folder.",
-                    "CMD: touch -------------------- DESC: Create a file.",
-                    "CMD: mv ----------------------- DESC: Move the file.",
-                    "CMD: cat ---------------------- DESC: Read all lines of text.",
-                    "CMD: poweroff ----------------- DESC: Turn off the computer.",
-                    "CMD: reboot ------------------- DESC: Reboot the computer.",
-                    // "CMD: run ---------------------- DESC: Running a program.",
-                    "CMD: reconf ------------------- DESC: Re-check the entire system.\n"
-                };
-                foreach (var command in commands) System.Console.WriteLine($"{command}");
-                System.Console.WriteLine(
-                    "To output a detailed command description, type \"commandName -h or --help\" " +
-                    "\neg. \"mkdir -h\"");
+                    string[] commands =
+                    {
+                        "\nCMD: cls\\clear ---------------- DESC: Clearing the terminal screen.",
+                        "CMD: pwd ---------------------- DESC: Display the current directory.",
+                        "CMD: mkdir -------------------- DESC: Creating a new folder.",
+                        "CMD: cd ----------------------- DESC: Changing the working directory.",
+                        "CMD: ls ----------------------- DESC: Display all folders and files.",
+                        "CMD: rm ----------------------- DESC: Deleting file or a directory.",
+                        "CMD: cp ----------------------- DESC: Copies the file to the spec. folder.",
+                        "CMD: touch -------------------- DESC: Create a file.",
+                        "CMD: mv ----------------------- DESC: Move the file.",
+                        "CMD: cat ---------------------- DESC: Read all lines of text.",
+                        "CMD: poweroff ----------------- DESC: Turn off the computer.",
+                        "CMD: reboot ------------------- DESC: Reboot the computer.",
+                        // "CMD: run ---------------------- DESC: Running a program.",
+                        "CMD: reconf ------------------- DESC: Re-check the entire system.\n"
+                    };
+                    foreach (var command in commands) System.Console.WriteLine($"{command}");
+                    System.Console.WriteLine(
+                        "To output a detailed command description, type \"commandName -h or --help\" " +
+                        "\neg. \"mkdir -h\"");
+                    break;
+                }
             }
         }
 
