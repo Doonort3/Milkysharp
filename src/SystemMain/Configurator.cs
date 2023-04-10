@@ -30,21 +30,21 @@ namespace Milkysharp.SystemMain
                     Methods.WriteLine("SYS DIRS >> ERROR", ConsoleColor.Red);
                     System.Console.WriteLine("Kernel panic!");
                     System.Console.ReadKey();
-                    Power.ACPIReboot();
+                    Power.CPUReboot();
                 }
 
                 System.Console.WriteLine("\n> Checking user config ***");
                 if (CreateUser())
                 {
                     Methods.WriteLine("USER CFG >> OK", ConsoleColor.Green);
-                    Terminal.Main();
+                    return true;
                 }
                 else
                 {
                     Methods.WriteLine("USER CFG >> ERROR", ConsoleColor.Red);
                     System.Console.WriteLine("Kernel panic!");
                     System.Console.ReadKey();
-                    Power.ACPIReboot();
+                    Power.CPUReboot();
                 }
             }
             catch
@@ -272,7 +272,7 @@ namespace Milkysharp.SystemMain
                                                     {
                                                         System.Console.WriteLine("Kernel panic!");
                                                         System.Console.ReadKey();
-                                                        Power.ACPIReboot();
+                                                        Power.CPUReboot();
                                                     }
 
                                                     break;
@@ -303,14 +303,14 @@ namespace Milkysharp.SystemMain
                                     {
                                         System.Console.WriteLine("Kernel panic!");
                                         System.Console.ReadKey();
-                                        Power.ACPIReboot();
+                                        Power.CPUReboot();
                                     }
                                 }
                                 else
                                 {
                                     System.Console.WriteLine("Kernel panic!");
                                     System.Console.ReadKey();
-                                    Power.ACPIReboot();
+                                    Power.CPUReboot();
                                 }
                             }
                             catch
@@ -326,7 +326,7 @@ namespace Milkysharp.SystemMain
                         {
                             System.Console.WriteLine("Kernel panic!");
                             System.Console.ReadKey();
-                            Power.ACPIReboot();
+                            Power.CPUReboot();
                         }
                     }
                     else
@@ -389,7 +389,7 @@ namespace Milkysharp.SystemMain
                             {
                                 System.Console.WriteLine("Kernel panic!");
                                 System.Console.ReadKey();
-                                Power.ACPIReboot();
+                                Power.CPUReboot();
                             }
                         }
                         else if (regulAutologin == "off")
@@ -503,7 +503,8 @@ namespace Milkysharp.SystemMain
             {
                 System.Console.WriteLine("Kernel panic!");
                 System.Console.ReadKey();
-                Power.ACPIReboot();
+                Recovery.HardReset();
+                Power.CPUReboot();
             }
 
             return true;

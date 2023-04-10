@@ -1,13 +1,13 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Cosmos.HAL;
 using Milkysharp.Applications;
 using Milkysharp.Cli;
 using Milkysharp.Core;
 using Milkysharp.Other;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 #endregion
 
@@ -150,7 +150,7 @@ namespace Milkysharp.Console
                     Console.Clear();
                     Console.WriteLine("Kernel panic!");
                     Console.ReadKey();
-                    Cosmos.HAL.Power.ACPIReboot();
+                    Cosmos.HAL.Power.CPUReboot();
                 }
             }
             else if (arguments.Count == 0)
@@ -159,19 +159,17 @@ namespace Milkysharp.Console
             }
         }*/
 
-        public static void RunStandart(List<string> arguments, string progName, string commandName)
+        /* public static void RunStandart(List<string> arguments, string progName, string commandName)
         {
-            if (commandName == ".\\")
-            {
                 if (progName.EndsWith(".bin"))
                 {
                     try
                     {
                         Methods.WriteLine("Execute files are currently not supported.", ConsoleColor.Yellow);
-                        /*byte[] data = File.ReadAllBytes(Kernel.CurrentDirectory + arguments[0]);
+                        byte[] data = File.ReadAllBytes(Kernel.CurrentDirectory + arguments[0]);
                         Runner.Reset(true);
                         Memory.WriteArray(0, data, data.Length);
-                        Runner.Start();*/
+                        Runner.Start();
                     }
                     catch
                     {
@@ -205,18 +203,16 @@ namespace Milkysharp.Console
                     if (!File.Exists(Kernel.CurrentVolume + fileName.ToUpper()))
                         Methods.WriteLine("File not found.", ConsoleColor.Red);
                 }
-            }
-            else if (commandName == ".")
-            {
+
                 if (progName.EndsWith(".bin"))
                 {
                     try
                     {
                         Methods.WriteLine("Execute files are currently not supported.", ConsoleColor.Yellow);
-                        /*byte[] data = File.ReadAllBytes(Kernel.CurrentDirectory + arguments[0]);
+                        byte[] data = File.ReadAllBytes(Kernel.CurrentDirectory + arguments[0]);
                         Runner.Reset(true);
                         Memory.WriteArray(0, data, data.Length);
-                        Runner.Start();*/
+                        Runner.Start();
                     }
                     catch
                     {
@@ -248,12 +244,58 @@ namespace Milkysharp.Console
                     if (!File.Exists(Kernel.CurrentDirectory + fileName.ToUpper()))
                         Methods.WriteLine("File not found.", ConsoleColor.Red);
                 }
-            }
-            else if (arguments.Count == 0)
+        }*/
+
+        /*public static void Edit(List<string> arguments)
+        {
+            string fileName = arguments[0];
+            
+            switch (arguments.Count)
             {
-                Methods.WriteLine("Syntax error.", ConsoleColor.Red);
+                case 1 when arguments[0].ToLower() is "-h" or "--help":
+                    Methods.Help("{file}", @"$ edit {file}", "Opens the text editor of the specified file.");
+                    break;
+                case 0:
+                    Methods.WriteLine("Syntax error. Use \"edit --help (-h)\" command.", ConsoleColor.Red);
+                    System.Console.ReadLine();
+                    break;
+                case > 0 when arguments[0].ToLower() is not "--help" or "-h":
+                    if (arguments[0].StartsWith("\\"))
+                    {
+                        if (File.Exists(Kernel.CurrentVolume + fileName))
+                        {
+                            MIVMain.StartMIV(fileName);
+                        }
+                        else
+                        {
+                            Methods.WriteLine("File not found.", ConsoleColor.Red);
+                        }
+                    }
+                    else if (!arguments[0].StartsWith("\\"))
+                    {
+                        if (File.Exists(Kernel.CurrentDirectory + fileName))
+                        {
+                            MIVMain.StartMIV(fileName);
+                        }
+                        else
+                        {
+                            Methods.WriteLine("File not found.", ConsoleColor.Red);
+                        }
+                    }
+                    else
+                    {
+                        System.Console.Clear();
+                        System.Console.WriteLine("Kernel panic!");
+                        System.Console.ReadKey();
+                        Power.CPUReboot();
+                    }
+                    break;
+                case > 2:
+                    Methods.WriteLine("Syntax error. Use \"edit --help (-h)\" command.", ConsoleColor.Red);
+                    break;
+
             }
-        }
+        }*/
 
         #endregion endExecute
 
@@ -409,7 +451,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;
@@ -491,7 +533,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;
@@ -558,7 +600,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;
@@ -576,10 +618,11 @@ namespace Milkysharp.Console
                     }
                     else if (!arguments[0].StartsWith("\\"))
                     {
-                        if (Directory.Exists(@"0:\" + arguments[0]))
+                        if (Directory.Exists(Kernel.CurrentDirectory + arguments[0]))
                             Methods.WriteLine("ERROR: This is a folder.", ConsoleColor.Red);
-                        else if (File.Exists(@"0:\" + arguments[0])) File.Delete(@"0:\" + arguments[0]);
-                        else if (!File.Exists(@"0:\" + arguments[0]))
+                        else if (File.Exists(Kernel.CurrentDirectory + arguments[0])) 
+                                File.Delete(Kernel.CurrentDirectory + arguments[0]);
+                        else if (!File.Exists(Kernel.CurrentDirectory + arguments[0]))
                             Methods.WriteLine("ERROR: This file doesn't exist.", ConsoleColor.Red);
                     }
                     else
@@ -587,7 +630,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;
@@ -636,7 +679,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;
@@ -692,7 +735,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;
@@ -756,7 +799,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;
@@ -814,7 +857,7 @@ namespace Milkysharp.Console
                         System.Console.Clear();
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
 
                     break;

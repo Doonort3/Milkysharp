@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Cosmos.System.Graphics.Fonts;
+using Cosmos.System.Graphics;
 using Milkysharp.Cli;
 using Milkysharp.Core;
 
@@ -14,6 +16,10 @@ namespace Milkysharp.Console
     {
         public static void Main()
         {
+
+            PCScreenFont font = PCScreenFont.Default;
+            VGAScreen.SetFont(font.CreateVGAFont(), font.Height);
+
             System.Console.Clear();
             Kernel.CurrentDirectory = @$"0:\home\{Kernel.Username}\";
 
@@ -98,7 +104,7 @@ namespace Milkysharp.Console
                         Commands.Cat(arguments);
                         goto input;
                     /*case "run":
-                        Commands.Run(arguments);
+                        Commands.RunStandart(arguments, arguments[0], arguments[1]);
                         goto input;*/
                     case "poweroff":
                         Commands.AcpiShutdown(arguments);
@@ -113,6 +119,9 @@ namespace Milkysharp.Console
                     case "reconf":
                         Commands.ReConfigure(arguments);
                         goto input;
+                    /*case "edit":
+                        Commands.Edit(arguments);
+                        goto input;*/
                     default:
                         Methods.WriteLine($"\"{commandName}\" not found. Use \"help\".", ConsoleColor.Red);
                         goto input;

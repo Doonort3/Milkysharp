@@ -65,14 +65,14 @@ namespace Milkysharp.SystemMain
                         {
                             System.Console.WriteLine("Kernel panic!");
                             System.Console.ReadKey();
-                            Power.ACPIReboot();
+                            Power.CPUReboot();
                         }
                     }
                     else
                     {
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
                 }
                 else if (!Directory.Exists(@"0:\system\config"))
@@ -86,14 +86,14 @@ namespace Milkysharp.SystemMain
                     {
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
                 }
                 else
                 {
                     System.Console.WriteLine("Kernel panic!");
                     System.Console.ReadKey();
-                    Power.ACPIReboot();
+                    Power.CPUReboot();
                 }
             }
             else if (!Directory.Exists(@"0:\system"))
@@ -107,14 +107,14 @@ namespace Milkysharp.SystemMain
                 {
                     System.Console.WriteLine("Kernel panic!");
                     System.Console.ReadKey();
-                    Power.ACPIReboot();
+                    Power.CPUReboot();
                 }
             }
             else
             {
                 System.Console.WriteLine("Kernel panic!");
                 System.Console.ReadKey();
-                Power.ACPIReboot();
+                Power.CPUReboot();
             }
 
             return true;
@@ -152,7 +152,7 @@ namespace Milkysharp.SystemMain
                     {
                         System.Console.WriteLine("Kernel panic!");
                         System.Console.ReadKey();
-                        Power.ACPIReboot();
+                        Power.CPUReboot();
                     }
                 }
                 else if (!Directory.Exists(@"0:\system\config"))
@@ -170,7 +170,7 @@ namespace Milkysharp.SystemMain
                 {
                     System.Console.WriteLine("Kernel panic!");
                     System.Console.ReadKey();
-                    Power.ACPIReboot();
+                    Power.CPUReboot();
                 }
             }
             else if (!Directory.Exists(@"0:\system"))
@@ -188,10 +188,19 @@ namespace Milkysharp.SystemMain
             {
                 System.Console.WriteLine("Kernel panic!");
                 System.Console.ReadKey();
-                Power.ACPIReboot();
+                Power.CPUReboot();
             }
 
             return true;
+        }
+
+        public static void HardReset()
+        {
+            System.Console.Clear();
+            Directory.Delete(@"0:\system", true);
+            Directory.Delete(@"0:\home", true);
+            File.Delete(@"0:\var\tmp\temp.tmp");
+            Power.CPUReboot();
         }
 
         /*public static bool ReinstallMilkysharp()
