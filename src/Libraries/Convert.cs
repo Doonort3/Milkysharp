@@ -1,13 +1,12 @@
 ﻿#nullable enable
-namespace Milkysharp.Libraries
+namespace Milkysharp.Libraries;
+
+public static class Convert
 {
-    public static class Convert
+    public static string[] ToStringArr(this string tsa)
     {
-        public static string[] ToStringArr(this string tsa)
-        {
-            if (tsa.Contains("\n")) return tsa.Split('\n');
-            string[] els = {tsa};
-            return els;
-        }
+        if (tsa.Contains("\n")) return tsa.Split('\n');
+        string[] els = { tsa };
+        return els;
     }
 }

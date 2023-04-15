@@ -1,81 +1,78 @@
 ﻿#nullable enable
-namespace Milkysharp.Libraries
-{
-    using System;
-    public class Read
-    {
-        public static string TextBox(int maxlenght, bool showBox = true, char boxopen = '[', char boxclose = ']',
-            ConsoleColor back = ConsoleColor.Gray, ConsoleColor text = ConsoleColor.Black)
-        {
-            if (Console.CursorLeft - 80 > maxlenght + 2)
-            {
-                Console.CursorLeft = 0;
-                Console.CursorTop++;
-            }
+using System;
 
-            Console.BackgroundColor = back;
-            Console.ForegroundColor = text;
-            if (showBox) Console.Write(boxopen);
-            var x = Console.CursorLeft;
-            for (var i = 0; i <= maxlenght; i++) Console.Write(" ");
-            if (showBox) Console.Write(boxclose);
-            Console.SetCursorPosition(x, Console.CursorTop);
-            var toreturn = "";
-            if (showBox) toreturn = LootiTerminal(Console.CursorLeft + maxlenght + 1, ']');
-            if (showBox == false) toreturn = LootiTerminal(Console.CursorLeft + maxlenght);
-            return toreturn;
+namespace Milkysharp.Libraries;
+
+public class Read
+{
+    public static string TextBox(int maxlenght, bool showBox = true, char boxopen = '[', char boxclose = ']',
+        ConsoleColor back = ConsoleColor.Gray, ConsoleColor text = ConsoleColor.Black)
+    {
+        if (System.Console.CursorLeft - 80 > maxlenght + 2)
+        {
+            System.Console.CursorLeft = 0;
+            System.Console.CursorTop++;
         }
 
-        public static string LootiTerminal(int mxcurpos, char bck = ' ')
+        System.Console.BackgroundColor = back;
+        System.Console.ForegroundColor = text;
+        if (showBox) System.Console.Write(boxopen);
+        var x = System.Console.CursorLeft;
+        for (var i = 0; i <= maxlenght; i++) System.Console.Write(" ");
+        if (showBox) System.Console.Write(boxclose);
+        System.Console.SetCursorPosition(x, System.Console.CursorTop);
+        var toreturn = "";
+        if (showBox) toreturn = LootiTerminal(System.Console.CursorLeft + maxlenght + 1, ']');
+        if (showBox == false) toreturn = LootiTerminal(System.Console.CursorLeft + maxlenght);
+        return toreturn;
+    }
+
+    public static string LootiTerminal(int mxcurpos, char bck = ' ')
+    {
+        var toreturn = "";
+        for (;;)
         {
-            var toreturn = "";
-            for (;;)
+            var arrow = "";
+            var input = System.Console.ReadKey();
+            if (input.Key == ConsoleKey.Enter) return toreturn + arrow;
+            if (input.Key == ConsoleKey.Backspace)
             {
-                var arrow = "";
-                var input = Console.ReadKey();
-                if (input.Key == ConsoleKey.Enter) return toreturn + arrow;
-                if (input.Key == ConsoleKey.Backspace)
+                var x = System.Console.CursorLeft;
+                if (toreturn.Length != 0)
                 {
-                    var x = Console.CursorLeft;
-                    if (toreturn.Length != 0)
-                    {
-                        Console.CursorLeft--;
-                        toreturn = toreturn.Remove(toreturn.Length - 1, 1);
-                        Console.Write(" ");
-                        Console.CursorLeft--;
-                    }
-                    else
-                    {
-                        Console.CursorLeft = x;
-                    }
-                }
-                else if (input.Key == ConsoleKey.LeftArrow)
-                {
-                    if (toreturn.Length > 0)
-                    {
-                        toreturn = toreturn.Remove(toreturn.Length - 1, 1);
-                    }
-                }
-                else if (input.Key == ConsoleKey.RightArrow && arrow.Length > 0)
-                {
-                    toreturn += arrow[0];
-                }
-                else if (input.Key == ConsoleKey.RightArrow && arrow.Length == 0)
-                {
-                    Console.CursorLeft--;
+                    System.Console.CursorLeft--;
+                    toreturn = toreturn.Remove(toreturn.Length - 1, 1);
+                    System.Console.Write(" ");
+                    System.Console.CursorLeft--;
                 }
                 else
                 {
-                    if (Console.CursorLeft <= mxcurpos)
-                    {
-                        toreturn += input.KeyChar.ToString();
-                    }
-                    else
-                    {
-                        Console.CursorLeft--;
-                        Console.Write(bck);
-                        Console.CursorLeft--;
-                    }
+                    System.Console.CursorLeft = x;
+                }
+            }
+            else if (input.Key == ConsoleKey.LeftArrow)
+            {
+                if (toreturn.Length > 0) toreturn = toreturn.Remove(toreturn.Length - 1, 1);
+            }
+            else if (input.Key == ConsoleKey.RightArrow && arrow.Length > 0)
+            {
+                toreturn += arrow[0];
+            }
+            else if (input.Key == ConsoleKey.RightArrow && arrow.Length == 0)
+            {
+                System.Console.CursorLeft--;
+            }
+            else
+            {
+                if (System.Console.CursorLeft <= mxcurpos)
+                {
+                    toreturn += input.KeyChar.ToString();
+                }
+                else
+                {
+                    System.Console.CursorLeft--;
+                    System.Console.Write(bck);
+                    System.Console.CursorLeft--;
                 }
             }
         }
